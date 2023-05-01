@@ -151,7 +151,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
@@ -159,22 +159,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>quitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>731</x>
-     <y>561</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>615</x>
-     <y>540</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>addButton</sender>
    <signal>clicked()</signal>
@@ -223,10 +207,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>quitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>closeApp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>744</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>636</x>
+     <y>569</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>newActivity()</slot>
   <slot>rmActivity()</slot>
   <slot>keySwap()</slot>
+  <slot>closeApp()</slot>
  </slots>
 </ui>

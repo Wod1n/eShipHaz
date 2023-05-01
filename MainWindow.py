@@ -1,4 +1,5 @@
 import os
+import csv
 import sys
 import time
 import numpy as np
@@ -47,7 +48,32 @@ class MainWindow(QMainWindow):
             i=i+1
             if(i%self.columns == 0):
                 j=j+1
+
+        if(os.path.isfile('persistMatrix.csv')):
+            importMatrix = np.genfromtxt('persistMatrix.csv', delimiter ='|')
+            importMatrix = importMatrix != 0
+            self.keyMatrix = importMatrix
         self.setKeyColours()
+
+        if os.path.isfile('persistActivities.csv'):
+            restoreFile = open('persistActivities.csv', 'r')
+            currentActs = restoreFile.read()
+            currentActList = currentActs.split('\n')
+            print(currentActList)
+            restoreFile.close()
+            i=0
+            while i < len(currentActList)-1:
+                newLine = currentActList[i].split('|')
+                newRow = self.ui.activityTable.rowCount()
+                self.ui.activityTable.setRowCount(newRow+1)
+                self.ui.activityTable.setItem(newRow, 0, QTableWidgetItem(newLine[0]))
+                self.ui.activityTable.setItem(newRow, 1, QTableWidgetItem(newLine[1]))
+                self.ui.activityTable.setItem(newRow, 2, QTableWidgetItem(newLine[2]))
+                self.ui.activityTable.setItem(newRow, 3, QTableWidgetItem(newLine[3]))
+                item = self.ui.shAreas.item(int(newLine[0])-1)
+                item.setBackground(QtGui.QColor("green"))
+                i=i+1
+
 
     def keySwap(self):
         idxRow = self.ui.keyBoard.currentRow()
@@ -119,3 +145,21 @@ class MainWindow(QMainWindow):
             i = i + 1
             if(i%self.columns == 0):
                 j = j + 1
+
+    def closeApp(self):
+        saveFile = open("persistMatrix.csv", 'w')
+        np.savetxt(saveFile, self.keyMatrix, delimiter='|')
+        saveFile.close()
+
+        if self.ui.activityTable.rowCount() != 0:
+            saveFile = open("persistActivities.csv", 'w')
+            i=0
+            while i < self.ui.activityTable.rowCount():
+                string = str(self.ui.activityTable.item(i, 0).text()) + '|'
+                string = string + str(self.ui.activityTable.item(i, 1).text()) + '|'
+                string = string + str(self.ui.activityTable.item(i, 2).text()) + '|'
+                string = string + str(self.ui.activityTable.item(i, 3).text()) + '\n'
+                saveFile.write(string)
+                i=i+1
+            saveFile.close()
+        self.close()
