@@ -1,11 +1,12 @@
 import sys
-import PySide6.QtWidgets as QApplication
+from PySide6.QtWidgets import QApplication
 
 from MainWindow import MainWindow
 
-app = QApplication(sys.argv)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
 
-board = MainWindow()
-board.show()
+    shBoard = MainWindow()
+    shBoard.show()
 
-sys.exit(app.exec())
+    sys.exit(app.exec())

@@ -8,6 +8,7 @@ from datetime import datetime
 from PySide6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from ui_MainWindow import Ui_MainWindow
 from shActivity import shActivity
+from shError import shError
 from reqKeys import reqKeys
 
 class MainWindow(QMainWindow):
@@ -52,6 +53,22 @@ class MainWindow(QMainWindow):
         idxRow = self.ui.keyBoard.currentRow()
         idxCol = self.ui.keyBoard.currentColumn()
         idxKey = idxRow*self.columns + idxCol
+
+        if(self.ui.activityTable.rowCount() != 0):
+            currentLines = []
+            currentSpons = []
+            i=0
+            while i < self.ui.activityTable.rowCount():
+                line = int(self.ui.activityTable.item(i, 0).text())
+                if(self.shMatrix[line-1][idxKey]):
+                    currentLines.append(line)
+                    currentSpons.append(str(self.ui.activityTable.item(i, 2).text()))
+                i = i+1
+            if(len(currentLines) != 0):
+                dialog = shError(currentLines, currentSpons)
+                dialog.exec()
+                return
+
         self.keyMatrix[idxKey] = not self.keyMatrix[idxKey]
         self.setKeyColours()
 
@@ -102,11 +119,3 @@ class MainWindow(QMainWindow):
             i = i + 1
             if(i%self.columns == 0):
                 j = j + 1
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    window = MainWindow()
-    window.show()
-
-    sys.exit(app.exec())
