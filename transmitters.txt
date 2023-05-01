@@ -1,0 +1,8 @@
+RT 1046 LRR Cease Tx
+RT 1046 LRR Cease Rotate
+RT 1045 MFR Cease Tx
+RT 1045 MFR Cease Rotate
+Phalanx Port Cease Tx & Rotate
+Phalanx Stbd Cease Tx & Rotate
+RT 1047 I-Band (F) Cease Tx & Rotate
+RT 1047 I-Band (A) Cease Tx & Rotate

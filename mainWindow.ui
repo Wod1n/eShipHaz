@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>eShipHaz Board</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="quitButton">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>510</y>
+      <width>88</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>780</width>
+      <height>490</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tabWidgetPage1">
+     <attribute name="title">
+      <string>ShipHaz Board</string>
+     </attribute>
+     <widget class="QTableWidget" name="keyBoard">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>10</y>
+        <width>471</width>
+        <height>241</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="shAreas">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>251</width>
+        <height>411</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>290</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Swap Key/Tally</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabWidgetPage2">
+     <attribute name="title">
+      <string>ShipHaz Activities</string>
+     </attribute>
+     <widget class="QTableWidget" name="activityTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>771</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>ShipHaz Row</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Time Started</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Work Sponsor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Authorisor</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="addButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>390</y>
+        <width>88</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>New Activity</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="rmButton">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>390</y>
+        <width>88</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove Line</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabWidgetPage3">
+     <attribute name="title">
+      <string>White Tallies</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>quitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>731</x>
+     <y>561</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>540</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newActivity()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>496</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>364</x>
+     <y>535</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rmButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rmActivity()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>496</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>475</x>
+     <y>565</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>keySwap()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>384</x>
+     <y>370</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>newActivity()</slot>
+  <slot>rmActivity()</slot>
+  <slot>keySwap()</slot>
+ </slots>
+</ui>

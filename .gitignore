@@ -1,0 +1,6 @@
+# GitIgnore file for eShipHaz project
+
+__pycache__/
+Archive/
+
+ui_*
