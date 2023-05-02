@@ -25,29 +25,40 @@ class MainWindow(QMainWindow):
         actList = activities.split('\n')
         actFile.close()
 
-        i = 1
-        while i < len(actList):
-            string = actList[i-1]
-            self.ui.shAreas.addItem(str(i) + ". " + string)
-            i = i + 1
-
         hazFile = open('transmitters.txt', 'r')
         hazards = hazFile.read()
         hazList = hazards.split('\n')
         hazFile.close()
+
+        self.ui.shBoardMatrix.setRowCount(len(actList))
+        self.ui.shBoardMatrix.setColumnCount(len(hazList))
+        i = 1
+        while i < len(actList):
+            string = actList[i-1]
+            self.ui.shAreas.addItem(str(i) + ". " + string)
+            self.ui.shBoardMatrix.setItem(i,0, QTableWidgetItem(string))
+            i = i + 1
 
         self.columns = 4
         self.ui.keyBoard.setColumnCount(self.columns)
         self.ui.keyBoard.setRowCount(len(hazList)/self.columns)
         self.keyMatrix = np.zeros(len(hazList)-1, dtype=bool)
 
+        hazList.pop()
         i=0
         j=0
         while i<len(hazList):
             self.ui.keyBoard.setItem(j,i%self.columns, QTableWidgetItem(hazList[i%self.columns+self.columns*j]))
+            self.ui.shBoardMatrix.setItem(0, i+1, QTableWidgetItem(hazList[i]))
             i=i+1
             if(i%self.columns == 0):
                 j=j+1
+
+        for ix, iy in np.ndindex(self.shMatrix.shape):
+            if self.shMatrix[ix, iy]:
+                self.ui.shBoardMatrix.setItem(ix+1, iy+1, QTableWidgetItem("X"))
+            else:
+                self.ui.shBoardMatrix.setItem(ix+1, iy+1, QTableWidgetItem(""))
 
         if(os.path.isfile('persistMatrix.csv')):
             importMatrix = np.genfromtxt('persistMatrix.csv', delimiter ='|')
@@ -100,11 +111,18 @@ class MainWindow(QMainWindow):
 
     def newActivity(self):
         dialog = shActivity()
+        self.ui.tabWidget.setCurrentIndex(0)
         dialog.exec()
+
+        for i in range(self.ui.shBoardMatrix.columnCount()):
+            self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor("yellow"))
+
         if(dialog.apply):
             keyDialog = reqKeys(self.shMatrix[dialog.shLine-1], self.keyMatrix)
             keyDialog.exec()
             if(not keyDialog.apply):
+                for i in range(self.ui.shBoardMatrix.columnCount()):
+                    self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor(0,0,0,0))
                 return
             self.keyMatrix = np.logical_or(self.keyMatrix, self.shMatrix[dialog.shLine-1])
             self.setKeyColours()
@@ -116,6 +134,9 @@ class MainWindow(QMainWindow):
             self.ui.activityTable.setItem(newRow, 3, QTableWidgetItem(dialog.authOff))
             item = self.ui.shAreas.item(dialog.shLine-1)
             item.setBackground(QtGui.QColor("green"))
+
+        for i in range(self.ui.shBoardMatrix.columnCount()):
+            self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor(0,0,0,0))
 
     def rmActivity(self):
         row = self.ui.activityTable.currentRow()
