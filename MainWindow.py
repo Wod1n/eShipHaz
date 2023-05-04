@@ -17,6 +17,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.saveDirectory = "./SavedData/"
         self.shMatrix = np.genfromtxt('SHMatrix.csv', delimiter=',')
         self.shMatrix = self.shMatrix != 0
 
@@ -29,6 +30,9 @@ class MainWindow(QMainWindow):
         hazards = hazFile.read()
         hazList = hazards.split('\n')
         hazFile.close()
+
+        if not os.path.isDir(self.saveDirectory):
+            os.makedir(self.saveDirectory)
 
         self.ui.shBoardMatrix.setRowCount(len(actList))
         self.ui.shBoardMatrix.setColumnCount(len(hazList))
@@ -60,14 +64,14 @@ class MainWindow(QMainWindow):
             else:
                 self.ui.shBoardMatrix.setItem(ix+1, iy+1, QTableWidgetItem(""))
 
-        if(os.path.isfile('persistMatrix.csv')):
-            importMatrix = np.genfromtxt('persistMatrix.csv', delimiter ='|')
+        if(os.path.isfile(self.saveDirectory + 'persistMatrix.csv')):
+            importMatrix = np.genfromtxt(self.saveDirectory + 'persistMatrix.csv', delimiter ='|')
             importMatrix = importMatrix != 0
             self.keyMatrix = importMatrix
         self.setKeyColours()
 
-        if os.path.isfile('persistActivities.csv'):
-            restoreFile = open('persistActivities.csv', 'r')
+        if os.path.isfile(self.saveDirectory + 'persistActivities.csv'):
+            restoreFile = open(self.saveDirectory + 'persistActivities.csv', 'r')
             currentActs = restoreFile.read()
             currentActList = currentActs.split('\n')
             print(currentActList)
@@ -168,12 +172,12 @@ class MainWindow(QMainWindow):
                 j = j + 1
 
     def closeApp(self):
-        saveFile = open("persistMatrix.csv", 'w')
+        saveFile = open(self.saveDirectory + "persistMatrix.csv", 'w')
         np.savetxt(saveFile, self.keyMatrix, delimiter='|')
         saveFile.close()
 
         if self.ui.activityTable.rowCount() != 0:
-            saveFile = open("persistActivities.csv", 'w')
+            saveFile = open(self.saveDirectory + "persistActivities.csv", 'w')
             i=0
             while i < self.ui.activityTable.rowCount():
                 string = str(self.ui.activityTable.item(i, 0).text()) + '|'
