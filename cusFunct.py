@@ -1,6 +1,7 @@
 import os
 import pytz
 import calendar
+from pyargon2 import hash
 from datetime import datetime
 
 def milDTG():
@@ -25,6 +26,10 @@ def milDTG():
 
     dtg = dtg + zoneCode[timeZone] + calendar.month_abbr[datetime.now().month] + str(datetime.now().year)
     return dtg
+
+def hashPassword(password):
+    salt = "Horse, Battery, Staple"
+    return hash(password, salt)
 
 def actArchive(arcLine):
     if not os.path.isdir("Archive"):

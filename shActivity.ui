@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>New ShipHaz Activity</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -59,13 +59,17 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QComboBox" name="authOff"/>
-    </item>
     <item row="0" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Authorising Officer</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="authOff">
+      <property name="text">
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>

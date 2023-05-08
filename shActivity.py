@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QDialog
 from ui_shActivity import Ui_shActivity
 
 class shActivity(QDialog):
-    def __init__(self):
+    def __init__(self, authoriser):
         super(shActivity, self).__init__()
         self.apply = False
         self.ui = Ui_shActivity()
@@ -21,16 +21,7 @@ class shActivity(QDialog):
             self.ui.shLine.addItem(str(i) + ". " + string)
             i = i + 1
 
-
-        authFile = open('authorisers.txt', 'r')
-        authorisers = authFile.read()
-        authList = authorisers.split('\n')
-        authFile.close()
-        i = 1
-        while i < len(authList):
-            string = authList[i-1]
-            self.ui.authOff.addItem(string)
-            i = i + 1
+        self.ui.authOff.setText(authoriser)
 
     def accept(self):
         self.apply = True

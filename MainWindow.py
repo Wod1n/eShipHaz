@@ -6,8 +6,9 @@ import numpy as np
 import PySide6.QtGui as QtGui
 import cusFunct as cf
 from datetime import datetime
-from PySide6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
+from PySide6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem, QMessageBox
 from ui_MainWindow import Ui_MainWindow
+from loginBox import loginBox
 from shActivity import shActivity
 from shError import shError
 from reqKeys import reqKeys
@@ -15,6 +16,9 @@ from reqKeys import reqKeys
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.currentUser = "Guest"
+        self.currentPassword = ""
+        self.scp = False
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.saveDirectory = "./SavedData/"
@@ -31,8 +35,8 @@ class MainWindow(QMainWindow):
         hazList = hazards.split('\n')
         hazFile.close()
 
-        if not os.path.isDir(self.saveDirectory):
-            os.makedir(self.saveDirectory)
+        if not os.path.isdir(self.saveDirectory):
+            os.makedirs(self.saveDirectory)
 
         self.ui.shBoardMatrix.setRowCount(len(actList))
         self.ui.shBoardMatrix.setColumnCount(len(hazList))
@@ -43,6 +47,9 @@ class MainWindow(QMainWindow):
             self.ui.shBoardMatrix.setItem(i,0, QTableWidgetItem(string))
             i = i + 1
 
+        continueLogin = self.changeUser()
+        if not continueLogin:
+            sys.exit()
         self.columns = 4
         self.ui.keyBoard.setColumnCount(self.columns)
         self.ui.keyBoard.setRowCount(len(hazList)/self.columns)
@@ -114,14 +121,22 @@ class MainWindow(QMainWindow):
         self.setKeyColours()
 
     def newActivity(self):
-        dialog = shActivity()
+        if self.currentUser == "Guest":
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error: You do not have permission")
+            msg.setInformativeText("Guest access does not permit addition or removal of ShipHaz activities")
+            msg.setWindowTitle("Error")
+            msg.exec()
+            return
+
+        dialog = shActivity(self.currentUser)
         self.ui.tabWidget.setCurrentIndex(0)
         dialog.exec()
 
-        for i in range(self.ui.shBoardMatrix.columnCount()):
-            self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor("yellow"))
-
         if(dialog.apply):
+            for i in range(self.ui.shBoardMatrix.columnCount()):
+                self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor("yellow"))
             keyDialog = reqKeys(self.shMatrix[dialog.shLine-1], self.keyMatrix)
             keyDialog.exec()
             if(not keyDialog.apply):
@@ -139,12 +154,20 @@ class MainWindow(QMainWindow):
             item = self.ui.shAreas.item(dialog.shLine-1)
             item.setBackground(QtGui.QColor("green"))
 
-        for i in range(self.ui.shBoardMatrix.columnCount()):
-            self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor(0,0,0,0))
+            for i in range(self.ui.shBoardMatrix.columnCount()):
+                self.ui.shBoardMatrix.item(dialog.shLine-1, i).setBackground(QtGui.QColor(0,0,0,0))
 
     def rmActivity(self):
+        if self.currentUser == "Guest":
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error: You do not have permission")
+            msg.setInformativeText("Guest access does not permit addition or removal of ShipHaz activities")
+            msg.setWindowTitle("Error")
+            msg.exec()
+            return
         row = self.ui.activityTable.currentRow()
-        rmBy = "Gibby"
+        rmBy = self.currentUser
         shLine = int(self.ui.activityTable.item(row, 0).text())
         arcLine = str(shLine) + '|'
         i=1
@@ -156,6 +179,16 @@ class MainWindow(QMainWindow):
         self.ui.activityTable.removeRow(row)
         item = self.ui.shAreas.item(shLine-1)
         item.setBackground(QtGui.QColor(0,0,0,0))
+
+    def changeUser(self):
+        dialog = loginBox(self.saveDirectory)
+        dialog.exec()
+        if dialog.continueLogin:
+            self.currentUser = dialog.user
+            self.scp = dialog.scp
+            self.currentPassword = dialog.password
+            self.ui.currentAccount.setText("Logged in as: " + self.currentUser)
+        return dialog.continueLogin
 
     def setKeyColours(self):
         i = 0
@@ -188,3 +221,18 @@ class MainWindow(QMainWindow):
                 i=i+1
             saveFile.close()
         self.close()
+
+    def newWTRA(self):
+        if not self.scp:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error: You do not have permission")
+            msg.setInformativeText("Non SCP'd personnel do not have access to making new White Tally Risk Assessments")
+            msg.setWindowTitle("Error")
+            msg.exec()
+            return
+
+        return
+
+    def openWTRA(self):
+        return
