@@ -11,6 +11,7 @@ from datetime import datetime
 from PySide6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem, QMessageBox
 from ui_MainWindow import Ui_MainWindow
 from loginBox import loginBox
+from newUser import newUser
 from shActivity import shActivity
 from shError import shError
 from reqKeys import reqKeys
@@ -244,6 +245,17 @@ class MainWindow(QMainWindow):
             self.currentPassword = dialog.password
             self.ui.currentAccount.setText("Logged in as: " + self.currentUser)
         return dialog.continueLogin
+
+    def newUser(self):
+        dialog = newUser(self.saveDirectory)
+        dialog.exec()
+        return
+
+    def changeSCP(self):
+        return
+
+    def changePassword(self):
+        return
 
     def setKeyColours(self):
         i = 0

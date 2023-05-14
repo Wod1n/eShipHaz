@@ -286,6 +286,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNewUser"/>
     <addaction name="actionChangeUser"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -293,13 +294,36 @@
      <string>Edit</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuAccount">
+    <property name="title">
+     <string>Account</string>
+    </property>
+    <addaction name="actionChangePassword"/>
+    <addaction name="actionChangeSCP"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuAccount"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionChangeUser">
    <property name="text">
     <string>Change User</string>
+   </property>
+  </action>
+  <action name="actionChangePassword">
+   <property name="text">
+    <string>Change Password</string>
+   </property>
+  </action>
+  <action name="actionChangeSCP">
+   <property name="text">
+    <string>Change SCP</string>
+   </property>
+  </action>
+  <action name="actionNewUser">
+   <property name="text">
+    <string>New User</string>
    </property>
   </action>
  </widget>
@@ -449,6 +473,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNewUser</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newUser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionChangePassword</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changePassword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionChangeSCP</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changeSCP()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>newActivity()</slot>
@@ -460,5 +532,8 @@
   <slot>changeUser()</slot>
   <slot>rmWTRA()</slot>
   <slot>testExtantWTRA()</slot>
+  <slot>newUser()</slot>
+  <slot>changePassword()</slot>
+  <slot>changeSCP()</slot>
  </slots>
 </ui>
