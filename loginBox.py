@@ -10,7 +10,8 @@ class loginBox(QDialog):
         self.ui = Ui_loginBox()
         self.ui.setupUi(self)
         self.userList = []
-        self.scp = False
+        self.weScp = False
+        self.meScp = False
         self.ui.loginButton.setDefault(True)
         self.ui.pwBox.setEchoMode(QLineEdit.EchoMode(2))
         if os.path.isfile(saveDirectory + 'authorisers.csv'):
@@ -32,7 +33,8 @@ class loginBox(QDialog):
                 if cf.hashPassword(str(self.ui.pwBox.text())) == self.userList[i][1]:
                     self.user = self.userList[i][0]
                     self.password = self.ui.pwBox.text()
-                    self.scp = self.userList[i][2] != 0
+                    self.weScp = self.userList[i][2] != '0'
+                    self.meScp = self.userList[i][3] != '0'
                     self.continueLogin = True
                     self.close()
 
@@ -54,5 +56,6 @@ class loginBox(QDialog):
 
     def guest(self):
         self.user = "Guest"
+        self.password = "Password"
         self.continueLogin = True
         self.close()

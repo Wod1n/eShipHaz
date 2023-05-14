@@ -1,0 +1,49 @@
+{
+"RT 1046 LRR Cease Tx" : {
+    "Risk Factor" : "Minimum safety distance from non-ionizing radiation for general public –210m  Ref BRd2924.",
+    "Proposed Mitigation Measure" : ["Nil Tx in Harbour","Transmit in dummy load only."],
+    "Mitigation Owner" : ["OOD", "DWETR"]
+    },
+
+"RT 1046 LRR Cease Rotate" : {
+    "Risk Factor" : "Danger of inadvertant antenna movement",
+    "Proposed Mitigation Measure" : "",
+    "Mitigation Owner" : ""
+    },
+
+"RT 1045 MFR Cease Tx" : {
+    "Risk Factor" : "Minimum safety distance from non-ionizing radiation for general public –700m  Ref BRd2924.",
+    "Proposed Mitigation Measure" : "Only transmit with AMH boards, and BAE present.",
+    "Mitigation Owner" : "DWETR"
+    },
+
+"RT 1045 MFR Cease Rotate" : {
+    "Risk Factor" : "Danger of inadvertant antenna movement",
+    "Proposed Mitigation Measure" : "",
+    "Mitigation Owner" : ""
+    },
+
+"Phalanx Port Cease Tx & Rotate" : {
+    "Risk Factor" : ["Danger of inadvertent mount movement.", "Minimum safety distance from non-ionizing radiation for general public – 87m Tracker, 47m Search  Ref BRd2924."],
+    "Proposed Mitigation Measure" : ["Only fully SQEP personnel shall operate the PHALANX system.", "The PHALANX mount will be checked clear of obstructions prior to and throughout SHIPHAZ key use.", "Personnel not directly involved in PHALANX maintenance should be clear of the PHALANX mount throughout.", "Movement of ammunition or fuel prohibited.", "No TX inboard mount.", "Check Arcs safe outboard."],
+    "Mitigation Owner" : ["DWETR", "DWETR", "DWETR", "OOD", "OOD", "DWETR"]
+    },
+
+"Phalanx Stbd Cease Tx & Rotate" : {
+    "Risk Factor" : ["Danger of inadvertent mount movement.", "Minimum safety distance from non-ionizing radiation for general public – 87m Tracker, 47m Search  Ref BRd2924."],
+    "Proposed Mitigation Measure" : ["Only fully SQEP personnel shall operate the PHALANX system.", "The PHALANX mount will be checked clear of obstructions prior to and throughout SHIPHAZ key use.", "Personnel not directly involved in PHALANX maintenance should be clear of the PHALANX mount throughout.", "Movement of ammunition or fuel prohibited.", "No TX inboard mount.", "Check Arcs safe outboard."],
+    "Mitigation Owner" : ["DWETR", "DWETR", "DWETR", "OOD", "OOD", "DWETR"]
+    },
+
+"RT 1047 I-Band (F) Cease Tx & Rotate" : {
+    "Risk Factor" : ["Danger of inadvertant antenna movement", "No transmission hazard to personnel, fuel (flash point above 60 degrees) and to ammunition. Ref BRd2924"],
+    "Proposed Mitigation Measure" : "",
+    "Mitigation Owner" : ""
+    },
+
+"RT 1047 I-Band (A) Cease Tx & Rotate" : {
+    "Risk Factor" : ["Danger of inadvertant antenna movement", "No transmission hazard to personnel, fuel (flash point above 60 degrees) and to ammunition. Ref BRd2924"],
+    "Proposed Mitigation Measure" : "",
+    "Mitigation Owner" : ""
+    }
+}

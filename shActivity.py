@@ -26,6 +26,5 @@ class shActivity(QDialog):
     def accept(self):
         self.apply = True
         self.shLine = self.ui.shLine.currentIndex() + 1
-        self.authOff = str(self.ui.authOff.itemText(self.ui.authOff.currentIndex()))
         self.wkSpon = str(self.ui.wkSpon.text())
         self.close()

@@ -27,7 +27,7 @@
      <string>Quit</string>
     </property>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="boardSection">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -202,7 +202,7 @@
        <string>Open</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="wtraTable">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -213,7 +213,27 @@
       </property>
       <column>
        <property name="text">
-        <string>Equipment</string>
+        <string>Department</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>WTRA Number</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Year</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Equipment Columns</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Equipment Names</string>
        </property>
       </column>
       <column>
@@ -228,14 +248,27 @@
       </column>
       <column>
        <property name="text">
-        <string>PTTX DTG</string>
+        <string>PTTX</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Expires</string>
+        <string>Expiry</string>
        </property>
       </column>
+     </widget>
+     <widget class="QPushButton" name="removeButton">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>400</y>
+        <width>88</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -273,6 +306,102 @@
  <resources/>
  <connections>
   <connection>
+   <sender>quitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>closeApp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>744</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>636</x>
+     <y>569</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionChangeUser</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changeUser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>keySwap()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>389</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newWTRA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>496</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>555</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>boardSection</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>testExtantWTRA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>255</x>
+     <y>560</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>openButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openWTRA()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>499</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>295</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>addButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -305,82 +434,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>removeButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>keySwap()</slot>
+   <slot>rmWTRA()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>389</x>
-     <y>466</y>
+     <x>268</x>
+     <y>500</y>
     </hint>
     <hint type="destinationlabel">
-     <x>405</x>
-     <y>561</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>quitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>closeApp()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>744</x>
-     <y>560</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>636</x>
-     <y>569</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>newButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>newWTRA()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>79</x>
-     <y>496</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>160</x>
-     <y>555</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>openButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openWTRA()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>179</x>
-     <y>499</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>295</x>
-     <y>556</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionChangeUser</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>changeUser()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
+     <x>270</x>
+     <y>546</y>
     </hint>
    </hints>
   </connection>
@@ -393,5 +458,7 @@
   <slot>newWTRA()</slot>
   <slot>openWTRA()</slot>
   <slot>changeUser()</slot>
+  <slot>rmWTRA()</slot>
+  <slot>testExtantWTRA()</slot>
  </slots>
 </ui>
